@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  vpn:
+    build:
+      context: .
+      args:
+       - version=master
+       - key
+    ports:
+     - 5000:5000/udp
+    devices:
+     - /dev/net/tun:/dev/net/tun
+    cap_add:
+     - NET_ADMIN
