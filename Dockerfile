@@ -24,9 +24,9 @@ RUN ldd /copy/bin/glorytun \
 
 FROM alpine:latest
 
-ARG key
-RUN echo "$key" > /run/gt.key
+RUN apk add --update --no-cache iproute2
 
 COPY --from=glorytun-build /copy/ /
+COPY ./run /bin/
 
-ENTRYPOINT ["glorytun", "keyfile", "/run/gt.key"]
+ENTRYPOINT ["/bin/run"]

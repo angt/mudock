@@ -1,4 +1,4 @@
-version: '2'
+version: "3.1"
 
 services:
   vpn:
@@ -6,10 +6,17 @@ services:
       context: .
       args:
        - version=master
-       - key
+    secrets:
+     - gt.key
     ports:
      - 5000:5000/udp
     devices:
      - /dev/net/tun:/dev/net/tun
     cap_add:
      - NET_ADMIN
+    restart: always
+    command: keyfile /run/secrets/gt.key
+
+secrets:
+  gt.key:
+    file: gt.key

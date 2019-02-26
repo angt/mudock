@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+ip tuntap add glorytun mode tun
+ip addr add 10.166.178.2/31 dev glorytun
+ip link set glorytun up
+iptables -w -t nat -A POSTROUTING -o eth0 -s 10.166.178.3 -j MASQUERADE
+
+exec glorytun bind 0.0.0.0 dev glorytun "$@"
