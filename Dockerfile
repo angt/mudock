@@ -13,9 +13,7 @@ ARG version
 
 RUN git clone https://github.com/angt/glorytun --branch "${version:-master}" --recursive \
  && cd glorytun \
- && ./autogen.sh \
- && ./configure --prefix=/copy \
- && make install-strip
+ && make prefix=/copy install
 
 RUN ldd /copy/bin/glorytun \
   | awk '/usr/{print $3}' \

@@ -2,6 +2,9 @@
 
 set -e
 
+mkdir -p /dev/net
+mknod -m 600 /dev/net/tun c 10 200 || true
+
 ip tuntap add glorytun mode tun
 ip addr add 10.166.178.2/31 dev glorytun
 ip link set glorytun up
